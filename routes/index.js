@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 router.get(
   "/login",
   passport.authenticate("auth0", {
-    clientID: event.AUTH0_CLIENT_ID,
+    clientID: env.AUTH0_CLIENT_ID,
     domain: env.AUTH0_DOMAIN,
     redirectUri: "http://localhost:4000/callback",
     responseType: "code",
