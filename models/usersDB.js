@@ -1,18 +1,47 @@
-const db = require("../dbConfig")
+const db = require("../dbConfig");
 
-//get and return all users 
+//get and return all users
 
 const getUsers = () => {
-    return db("users").orderBy("id", "desc")
-}
+  return db("users").orderBy("id", "desc");
+};
 
+//add a user to the users table
+const registerUser = user => {
+  return db("users")
+    .insert(user)
+    .returning(["id"]);
+};
 
+//find out if the user needs to be registered
+const registered = email => {
+  return db("users").where({ email });
+};
 
+//update the users information
+const updateUser = (username, id) => {
+  return db("users")
+    .where({ id })
+    .update({ username }, ["username"]);
+};
+
+//check if username is available
+const getUsername = username => {
+//   return db("users").where({ username });
+    return db("users").where({ username })
+     .count()
+};
+
+// const createUser
 
 
 
 /* export all functions */
 
 module.exports = {
-    getUsers, 
-}
+  getUsers,
+  registerUser,
+  registered,
+  updateUser,
+  getUsername,
+};
