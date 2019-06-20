@@ -21,6 +21,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.put("/:id", (req,res) => {
+  let moveForward = true; 
   const { id } = req.params;
   const {favorites } = req.body;
   //capitalize the string as all symbols are uppercased
@@ -36,13 +37,20 @@ router.put("/:id", (req,res) => {
     .then(count => {
       //make sure that the coins exist.
       if(Number(count[0].count) === 0){
+        moveForward = false;
         return res.status(409).json({ error: `There is no ${favorite} data please remove or check the spelling of the coin symbol ${favorite}. Thank you.`})
       }
-      //If the code makes it here all is well and can proceed with updating the favorites
-      //for the user matching the id
-
     })
     .catch(err => console.log(err))
+  }
+  if (moveForward === true){
+    //If the code makes it here all is well and can proceed with updating the favorites
+        //for the user matching the id
+        console.log( id )
+        return favoritesDB 
+          .updateFavorites(id, favoritesList.join(' '))
+          .then(results => res.status(200).json(results))
+          .catch(err => res.status(500).json(err))
   }
 
 })
