@@ -241,10 +241,10 @@ for (let coin of coins){
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex("table_name")
+  return knex("coins")
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex("table_name").insert(coinSeeds);
+      return knex("coins").insert(coinSeeds);
     });
 };

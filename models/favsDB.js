@@ -1,4 +1,4 @@
-const db = require("../../dbConfig.js")
+const db = require("../dbConfig")
 
 // get and return all user fav's  
 
