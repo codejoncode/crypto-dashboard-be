@@ -3,6 +3,8 @@ exports.up = function(knex, Promise) {
     tbl.increments();
     tbl.integer("users_id").references("id");
     inTable("users").onDelete("SET NULL");
+    tbl.integer("coins_id").references("id");
+    inTable("coins").onDelete("SET NULL");
     tbl.string("fav").notNullable();
   });
 };
