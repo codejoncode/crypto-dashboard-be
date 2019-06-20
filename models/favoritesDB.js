@@ -11,12 +11,13 @@ const getFavoritesById = (id) => {
       .where({ id })
 }
 
+//When a user registers will create  favorites for them to begin.
 const addFavorites = (users_id, favorites) => {
     db("favorites")
       .insert({users_id, favorites})
       .returning(["favorites"])
 }
-
+//user wants to add to or make changes to favorites
 const updateFavorites = (users_id, favorites) => {
     db("favorites")
     .update({favorites})
