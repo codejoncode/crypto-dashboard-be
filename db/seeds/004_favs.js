@@ -1,11 +1,10 @@
-
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('favorites').del()
+  return knex('favs').del()
     .then(function () {
       // Inserts seed entries
-      return knex('favorites').insert([
-        {users_id : 3, favorites: "BTC ETH XMR DOGE"}
+      return knex('favs').insert([
+        {users_id: 1, coins_id: 2, fav: "BTC"}
       ]);
     });
 };
