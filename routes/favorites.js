@@ -11,4 +11,12 @@ router.get("/", (req, res) => {
     );
 });
 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  return favoritesDB
+    .getFavoritesById(id)
+    .then(results => res.status(200).json(results))
+    .catch(err => res.status(500).json(err));
+});
+
 module.exports = router;
