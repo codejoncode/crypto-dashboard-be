@@ -23,3 +23,5 @@ server.get("/", (req, res) => {
 /*Import these  */
 
 // for each route imported  server .use  the end point for that route
+
+module.exports = server;
