@@ -12,7 +12,9 @@ const getUserFav = (users_id) => {
       .where({users_id})
 }
 
-// const addFav = (users_id, )
+const addFav = (users_id, coins_id) => {
+    
+}
 
 const updateUserFav = async (users_id, fav, coins_id) => {
     await db("favs")

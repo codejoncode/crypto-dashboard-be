@@ -3,7 +3,7 @@ const db = require("../dbConfig");
 //get and return all users
 
 const getUsers = () => {
-  return db("users").orderBy("id", "desc");
+  return db("users").select("username");
 };
 
 //add a user to the users table
@@ -32,6 +32,13 @@ const getUsername = username => {
      .count()
 };
 
+const deleteUserAccount = (id) => {
+    db("users")
+    .where({ id })
+    .del()
+    return getUsers()
+}
+
 // const createUser
 
 
@@ -44,4 +51,5 @@ module.exports = {
   registered,
   updateUser,
   getUsername,
+  deleteUserAccount,
 };
