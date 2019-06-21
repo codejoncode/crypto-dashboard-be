@@ -14,7 +14,7 @@ const getUserFav = (users_id) => {
 
 const addFav = async (users_id, coins_id, fav) => {
     // need to get the coins id 
-    db("favs")
+    await db("favs")
       .insert({users_id, coins_id, fav})
     return getUserFav(users_id)
 }

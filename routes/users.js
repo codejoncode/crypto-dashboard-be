@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
       })
       .catch(error => {
         moveForward = false;
-        res.status(500).json(error);
+        res.status(500).json({error : `Problem verifying if user already exists ${error}`});
       });
   }
 
@@ -79,7 +79,7 @@ router.post("/", async (req, res) => {
     await usersDB
       .getUsers()
       .then(results => {
-        const usernames = results
+        const usernames = [...results]
           .filter(
             user =>
               user.username[0] === username[0] &&
@@ -91,12 +91,12 @@ router.post("/", async (req, res) => {
         //fitler goes through each one for O^N  and  map does the same  O^N  happens after each other so
         //  2O^N   overall it should makes the next step even smaller.  Not a big deal unless there was millions of users but a practice
         let one = username;
-        let two = username.slice(0, data.length - 1);
-        let three = (username += username[-1]);
+        let two = username.slice(0, username.length - 1);
+        let three = (username + username[-1]);
         const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
 
         while (true) {
-          var index = Math.floor(Math.random() * characters.length);
+          let index = Math.floor(Math.random() * characters.length);
           if (usernames.includes(one) === false) {
             finalUserName = one;
             break;
@@ -114,7 +114,7 @@ router.post("/", async (req, res) => {
       })
       .catch(error => {
         moveForward = false;
-        return res.status(500).json(error);
+        return res.status(500).json({error : `Problem checking users ${error}`});
       });
   }
 
@@ -125,13 +125,13 @@ router.post("/", async (req, res) => {
       username: finalUserName
     };
     usersDB
-      .registerUser(req.body)
+      .registerUser(body)
       .then(async results => {
         //grab the id
         let users_id = results[0].id;
 
         //set default favorites
-        await favoritesDB.addFavorites(defaultFavorites);
+        await favoritesDB.addFavorites(users_id, defaultFavorites);
         await coinsDB
           .getCoinByName(defaultFav)
           .then(results => {
@@ -139,7 +139,7 @@ router.post("/", async (req, res) => {
           })
           .catch(error => {
             moveForward = false;
-            res.status(500).json(error);
+            res.status(500).json({error : `Problem setting the users fav coin ${error}`});
           });
         await favsDB.addFav(users_id, coins_id, defaultFav);
         //set default fav
@@ -148,7 +148,7 @@ router.post("/", async (req, res) => {
           res.status(200).json(results);
         }
       })
-      .catch(error => res.status(500).json(error));
+      .catch(error => res.status(500).json({error : `Problem registering the user ${error}`}));
   }
 
   // add default favorites
