@@ -122,7 +122,7 @@ router.post("/", async (req, res) => {
     const body = {
       name,
       email,
-      username: finalUserName
+      username: finalUserName.toLowerCase() // all user names  lower case. 
     };
     usersDB
       .registerUser(body)
@@ -150,9 +150,38 @@ router.post("/", async (req, res) => {
       })
       .catch(error => res.status(500).json({error : `Problem registering the user ${error}`}));
   }
-
-  // add default favorites
-
-  //add default fav
 });
+
+// update the users  username 
+router.put("/:id", async (req,res) => {
+  const { id } = req.params; 
+  const {username} = req.body; 
+  const finalUserName = username.toLowerCase()
+  console.log(username)
+  let moveForward = true; 
+  if(!username || username.length < 3){
+    moveForward = false
+    return res.status(422).json({error: `The username property is required if you wish to change it. Username length is required to be more than 3 characters`})
+  }
+  if (moveForward === true){
+    await usersDB
+      .getUsers()
+      .then(results => {
+        const usernames = results.map(user => user.usernames)
+        if (usernames.includes(finalUserName) === true){
+          moveForward = false;
+          return res.status(422).json({error: `That username is not available ${error}`})
+        }
+      }).catch(error => res.status(500).json({error : `Issue with checking if username already exists ${error}`}))
+  }
+  
+  if(moveForward === true){
+    
+    await usersDB
+      .updateUser(finalUserName, id )
+      .then(results =>  res.status(200).json(results))
+      .catch(error => res.status(500).json({error: `Issue with updating the username ${error}`}))
+  }
+
+})
 module.exports = router;
