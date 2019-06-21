@@ -7,7 +7,7 @@ const getCoins = () => {
 }
 
 const getCoinByName = (coin) => {
-    return db("coins").where({coin}).count();
+    return db("coins").where({coin}).returning(['id'])
 }
 
 module.exports = {
