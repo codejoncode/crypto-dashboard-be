@@ -110,6 +110,17 @@ router.post("/", async (req, res) => {
           one += characters[index];
           two += characters[index];
           three += characters[index];
+
+          // if (one.length > 16){
+            
+          // }
+
+          // if (two.length > 16){
+
+          // }
+          // if (three.length > 16){
+
+          // }
         }
       })
       .catch(error => {
@@ -159,9 +170,9 @@ router.put("/:id", async (req,res) => {
   const finalUserName = username.toLowerCase()
   console.log(username)
   let moveForward = true; 
-  if(!username || username.length < 3){
+  if(!username || username.length < 3 || username.length > 16){
     moveForward = false
-    return res.status(422).json({error: `The username property is required if you wish to change it. Username length is required to be more than 3 characters`})
+    return res.status(422).json({error: `The username property is required if you wish to change it. Username length is required to be more than 3 characters and less than 17`})
   }
   if (moveForward === true){
     await usersDB
