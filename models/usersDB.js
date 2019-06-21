@@ -32,8 +32,8 @@ const getUsername = username => {
      .count()
 };
 
-const deleteUserAccount = (id) => {
-    db("users")
+const deleteUserAccount = async (id) => {
+    await db("users")
     .where({ id })
     .del()
     return getUsers()

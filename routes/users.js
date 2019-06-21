@@ -31,11 +31,11 @@ router.get("/:username", (req, res) => {
     .catch(err => res.status(500).json({ err }));
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   console.log(id);
   console.log(typeof id);
-  usersDB
+  await usersDB
     .deleteUserAccount(Number(id))
     .then(results => res.status(200).json(results))
     .catch(error => res.status(500).json(error));
