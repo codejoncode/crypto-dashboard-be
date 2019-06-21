@@ -12,8 +12,11 @@ const getUserFav = (users_id) => {
       .where({users_id})
 }
 
-const addFav = (users_id, coins_id) => {
-    
+const addFav = async (users_id, coins_id, fav) => {
+    // need to get the coins id 
+    db("favs")
+      .insert({users_id, coins_id, fav})
+    return getUserFav(users_id)
 }
 
 const updateUserFav = async (users_id, fav, coins_id) => {
@@ -30,4 +33,5 @@ module.exports = {
     getFavs,
     getUserFav,
     updateUserFav,
+    addFav
 }
