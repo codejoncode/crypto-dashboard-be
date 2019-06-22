@@ -44,7 +44,7 @@ router.delete("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const defaultFavorites = "BTC ETH XMR DOGE";
   const defaultFav = "BTC";
-  const { username, email, name } = req.body;
+  const { username, email, name, picture } = req.body;
   let moveForward = true;
   let finalUserName;
   /* Make sure the username email and name exist */
@@ -57,6 +57,9 @@ router.post("/", async (req, res) => {
   } else if (!name) {
     moveForward = false;
     return res.status(422).json({ error: "name is missing but required" });
+  } else if (!picture){
+    moveForward = false; 
+    return res.status(422).json({error: "picture is missing but required"});
   }
   /*check if the email already exists if it does no further actions are needed */
   if (moveForward === true) {
