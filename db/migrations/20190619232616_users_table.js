@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     tbl.string('username').unique().notNullable()
     tbl.string('email').unique().notNullable()
     tbl.string('name')
+    tbl.string('picture')
   })
 };
 

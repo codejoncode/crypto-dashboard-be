@@ -19,4 +19,4 @@
 
 **COINS**
 
-  - GET    coins/  will return all coins  not really used much on the backend since I am using another API to gather the coins for the users.  Currently the only purpose for having coins in the database is to make sure that the coins being added to favorites and as favs exist in the database likely will have to be updated from time to time so I may see about using the api  on the backend to perform the check of the existing coin so there will be less maintenance  created a card for this. 
+  - GET    coins/  will return all coins  not really used much on the backend since I am using another API to gather the coins for the users.  Currently the only purpose for having coins in the database is to make sure that the coins being added to favorites and as favs exist in the database likely will have to be updated from time to time so I may see about using the api  on the backend to perform the check of the existing coin so there will be less maintenance  created a card for this. "maintenance is expensive" 
