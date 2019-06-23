@@ -3,14 +3,15 @@ const db = require("../dbConfig");
 //get and return all users
 
 const getUsers = () => {
-  return db("users").select("username");
+  // return db("users").select("username");
+  return db("users")
 };
 
 //add a user to the users table
 const registerUser = user => {
   return db("users")
     .insert(user)
-    .returning(["id"]);
+    .returning(["id", "picture", "email", "username", "name"]);
 };
 
 //find out if the user needs to be registered

@@ -7,6 +7,7 @@ const getCoins = () => {
 }
 
 const getCoinByName = (coin) => {
+    console.log(`${coin} inside coin by name`)
     return db("coins").where({coin}).returning(['id'])
 }
 

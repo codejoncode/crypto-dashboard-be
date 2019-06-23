@@ -13,7 +13,7 @@ const getFavoritesById = (users_id) => {
 
 //When a user registers will create  favorites for them to begin.
 const addFavorites = async (users_id, favorites) => {
-    await db("favorites")
+    return await db("favorites")
       .insert({users_id, favorites})
       .returning(["favorites"])
 }
