@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwtCheck = require("./config/middleware/Auth0.js");
 const usersDB = require("../models/usersDB");
 const favoritesDB = require("../models/favoritesDB");
 const favsDB = require("../models/favsDB");
