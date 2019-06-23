@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const jwtCheck = require("../config/middleware/Auth0");
 const favoritesDB = require("../models/favoritesDB");
 const coinsDB = require("../models/coinsDB");
 
-router.get("/", (req, res) => {
+router.get("/", jwtCheck, (req, res) => {
   return favoritesDB
     .getFavorites()
     .then(results => res.status(200).json(results))
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
     );
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", jwtCheck, (req, res) => {
   const { id } = req.params;
   return favoritesDB
     .getFavoritesById(id)
@@ -20,7 +21,7 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.put("/:id", (req,res) => {
+router.put("/:id", jwtCheck, (req,res) => {
   let moveForward = true; 
   const { id } = req.params;
   const {favorites } = req.body;

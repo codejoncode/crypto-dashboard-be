@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwtCheck = require("../config/middleware/Auth0");
 const favsDB = require("../models/favsDB");
 const coinsDB = require("../models/coinsDB");
 
@@ -10,7 +11,7 @@ router.get("/", (req, res) => {
       .catch(err => res.status(500).json({error: `Failed to get favs ${err}`}))
 })
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", jwtCheck, async (req, res) => {
   let moveForward = true; 
   let coins_id; //user likely won't have the coins id so I am going to allow
   const { id } = req.params;

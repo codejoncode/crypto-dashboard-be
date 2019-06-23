@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const jwtCheck = require("./config/middleware/Auth0.js");
+const jwtCheck = require("../config/middleware/Auth0.js");
 const usersDB = require("../models/usersDB");
 const favoritesDB = require("../models/favoritesDB");
 const favsDB = require("../models/favsDB");
 const coinsDB = require("../models/coinsDB");
 
-router.get("/", (req, res) => {
+router.get("/", jwtCheck, (req, res) => {
   return usersDB
     .getUsers()
     .then(results => res.status(200).json(results))
@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 });
 
 //only testing out the getUsername works
-router.get("/:username", (req, res) => {
+router.get("/:username", jwtCheck, (req, res) => {
   const { username } = req.params;
   let userExists;
   usersDB
@@ -32,7 +32,7 @@ router.get("/:username", (req, res) => {
     .catch(err => res.status(500).json({ err }));
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", jwtCheck, async (req, res) => {
   const { id } = req.params;
   console.log(id);
   console.log(typeof id);
@@ -42,7 +42,7 @@ router.delete("/:id", async (req, res) => {
     .catch(error => res.status(500).json(error));
 });
 
-router.post("/", async (req, res) => {
+router.post("/", jwtCheck, async (req, res) => {
   const defaultFavorites = "BTC ETH XMR DOGE";
   const defaultFav = "BTC";
   const { username, email, name, picture } = req.body;
@@ -253,7 +253,7 @@ router.post("/", async (req, res) => {
 });
 
 // update the users  username
-router.put("/:id", async (req, res) => {
+router.put("/:id", jwtCheck, async (req, res) => {
   const { id } = req.params;
   const { username } = req.body;
   const finalUserName = username.toLowerCase();
