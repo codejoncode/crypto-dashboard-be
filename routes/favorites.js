@@ -42,12 +42,11 @@ router.put("/:id", jwtCheck, (req,res) => {
         return res.status(409).json({ error: `There is no ${favorite} data please remove or check the spelling of the coin symbol ${favorite}. Thank you.`})
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => res.status(500).json(error))
   }
   if (moveForward === true){
     //If the code makes it here all is well and can proceed with updating the favorites
         //for the user matching the id
-        console.log( id )
         return favoritesDB 
           .updateFavorites(id, favoritesList.join(' '))
           .then(results => res.status(200).json(results))

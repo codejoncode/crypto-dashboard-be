@@ -19,7 +19,6 @@ router.put("/:id", jwtCheck, async (req, res) => {
   const favUpperCase = fav.toUpperCase(); 
   await coinsDB.getCoinByName(favUpperCase)
   .then(results => {
-    console.log(results)
      coins_id = results[0].id; 
     if(!coins_id){
       moveForward = false; 
@@ -29,7 +28,6 @@ router.put("/:id", jwtCheck, async (req, res) => {
   .catch(err => res.status(500).json(err))
 
   if (moveForward === true){
-    console.log(coins_id)
     return favsDB
       .updateUserFav(id, favUpperCase, coins_id)
       .then(results => res.status(200).json(results))
